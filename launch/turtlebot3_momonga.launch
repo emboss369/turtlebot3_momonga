@@ -1,0 +1,23 @@
+<launch>
+    <arg name="multi_robot_name" default=""/>
+    <arg name="set_lidar_frame_id" default="base_scan"/>
+
+    <!-- Run Realsense -->
+    <include file="$(find realsense_camera)/launch/zr300_nodelet_rgbd.launch">
+    </include>
+
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_core.launch">
+        <arg name="multi_robot_name" value="$(arg multi_robot_name)"/>
+    </include>
+
+    <!-- Run RPLIDAR A3 -->
+    <include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+
+    <node pkg="turtlebot3_bringup" type="turtlebot3_diagnostics" name="turtlebot3_diagnostics" output="screen"/>
+
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    </include>
+
+    <node pkg="turtlebot3_momonga" type="turtlebot3_momonga_node" name="turtlebot3_momonga_node" output="screen"/>
+
+</launch>
