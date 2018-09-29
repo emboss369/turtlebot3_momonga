@@ -297,7 +297,7 @@ void publishBatteryStateMsg(void)
   battery_state_msg.header.stamp = rosNow();
   battery_state_msg.design_capacity = 12.0f; //Ah
   battery_state_msg.voltage = sensors.checkVoltage();
-  battery_state_msg.percentage = (float)(70.0f * battery_state_msg.voltage - 800.0f); // remain % = 70 * V - 800 
+  battery_state_msg.percentage = (float)(40.0f * battery_state_msg.voltage - 420.0f); // remain % = 40 x V - 420
 
   if (battery_state == 0)
     battery_state_msg.present = false;
