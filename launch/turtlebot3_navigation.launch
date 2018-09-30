@@ -11,7 +11,7 @@
     <arg name="visual_odometry" value="false"/>
     <arg name="odom_topic" value="/odom"/>
     <arg name="localization" value="true"/>
-    <arg name="rtabmapviz" value="false"/>
+    <arg name="rtabmapviz" value="true"/>
   </include>
 
   <!-- RVIZ -->
