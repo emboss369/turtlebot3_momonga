@@ -265,26 +265,63 @@
       <!-- Output topics -->
       <remap from="grid_map" to="/map"/>
 
-      <!-- RTAB-Map's parameters -->
+      <!-- RTAB-Map's parameters  from https://github.com/ROBOTIS-JAPAN-GIT/turtlebot3_slam_3d -->
+
+      <!-- ICPを使用して入力レーザートピックを使用してオドメトリーを修正します。 -->
       <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
-      <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
+
+      <!-- マップ内のロボットの位置に基づいてローカルループクロージャを検索します。
+      例えば、ロボットが反対方向に戻ってくるときに便利です。カメラが背面を向いている場合、
+      グローバルループクロージャは見つかりません。したがって、位置と以前に追加された
+      レーザースキャンをマップに使用すると、ICPを使用した変換が見つかります。
+      大規模マッピングでは、オドメトリが非常に間違っている場合、ローカルICPが
+      間違った結果をもたらす可能性があるため（false loop closure）、
+      この方法は無効にする必要があることに注意してください。 -->
+      <param name="RGBD/ProximityBySpace"     type="string" value="true"/> 
+
+      <!--
+      ここでは、最初のマップではなくマップに追加された最新のノードから最適化しました。
+      最後から最適化することで、最後のポーズは値を保持し、以前のポーズはすべてそれに
+      従って補正されます（したがって、/ odomと/ mapは常に一致します）。最初から
+      最適化することで、すべての連続したノードが最初のノードに従って修正されます
+      （追加された最後のポーズを修正するために/ odomと/ mapの間の変換が行われます）。
+      falseに設定された場合の警告：
+      最初から最適化すると、ノードが転送されたときにローカルマップの最初の参照が
+      変更され、ロボット/マップの位置が一時的に変更されることがあります（遠隔操作で迷惑になります）。
+      --> 
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+
+      <!-- ロボットはマップを更新するために移動する必要があります（0でない場合）。 -->
       <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
+
+      <!-- ロボットがマップを更新するために移動する必要があります（0でない場合）。 -->
       <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
+
       <param name="Optimizer/Slam2D"          type="string" value="true"/>
       <param name="Reg/Force3DoF"             type="string" value="true"/>
       <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
+      <!-- 変換を受け入れるための最小ビジュアルワードinliers（ループクロージャの画像間のRANSAC変換後）。 -->
       <param name="Vis/MinInliers"            type="string" value="5"/>
       <param name="Vis/InlierDistance"        type="string" value="0.1"/>
+      <!-- 抽出されたキーポイントを深さでフィルタリングする（0 = inf） -->
       <param name="Kp/MaxDepth"               type="string" value="1.75"/>
+      <!-- 特徴点の最大深さ（0は無制限を意味します） -->
       <param name="Vis/MaxDepth"              type="string" value="1.75"/>
+      <!-- マップ更新に許可される最大時間（ミリ秒）（0は無限大を意味します）。 
+      マップ更新時間がこの固定時間しきい値を超えると、ワーキングメモリ（WM）
+      の一部のノードが長期メモリに転送され、WMのサイズが制限され、更新時間が短縮されます。 -->
       <param name="Rtabmap/TimeThr"           type="string" value="700"/>
+      <!-- 検出率（Hz）。 RTAB-Mapは、このレートを満たすために入力画像をフィルタリングします。def:1 -->
       <param name="Rtabmap/DetectionRate"     type="string" value="$(arg rate)" />
+      <!-- リハーサル類似性。% -->
       <param name="Mem/RehearsalSimilarity"   type="string" value="0.45"/>
-      <param name="Grid/MaxObstacleHeight"    type="string" value="1.7" />
+      <!-- 最大障害物の高さ（0 =無効）。 -->
+      <param name="Grid/MaxObstacleHeight"    type="string" value="0.8" />
       <param name="Grid/NoiseFilteringRadius" type="string" value="0.05"/>
       <param name="Grid/NoiseFilteringMinNeighbors" type="string" value="5"/>
 
+      <!-- 動き推定アプローチ：0：3D→3D、1：3D→2D（PnP）、2：2D→2D（エピポーラ幾何学）デフォルトは1かな？ -->
+      <param name="Vis/EstimationType"        type="string" value="1">
 
 
 
