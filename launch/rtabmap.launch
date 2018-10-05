@@ -321,7 +321,7 @@
       <param name="Grid/NoiseFilteringMinNeighbors" type="string" value="5"/>
 
       <!-- 動き推定アプローチ：0：3D→3D、1：3D→2D（PnP）、2：2D→2D（エピポーラ幾何学）デフォルトは1かな？ -->
-      <param name="Vis/EstimationType"        type="string" value="1">
+      <param name="Vis/EstimationType"        type="string" value="1"/>
 
 
 
