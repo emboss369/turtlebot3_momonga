@@ -9,10 +9,10 @@ project(turtlebot3_momonga)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
   std_msgs
   turtlebot3_msgs
   message_generation
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -50,9 +50,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate messages in the 'msg' folder
 add_message_files(
-   FILES
-   msgBatteryLevel.msg
-#   Message2.msg
+  FILES
+  msgBatteryLevel.msg
+  Waypoint.msg
+  WaypointArray.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -74,6 +75,7 @@ generate_messages(
    DEPENDENCIES
    std_msgs
 #   turtlebot3_msgs
+  geometry_msgs
 )
 
 ################################################
@@ -108,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
   LIBRARIES turtlebot3_momonga
-  CATKIN_DEPENDS roscpp rospy std_msgs turtlebot3_msgs sensor_msgs
+  CATKIN_DEPENDS roscpp std_msgs turtlebot3_msgs sensor_msgs message_runtime geometry_msgs
   DEPENDS system_lib
 )
 
@@ -137,7 +139,9 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 
+## add_executable(実行ファイル名 ソースコード名)
 add_executable(${PROJECT_NAME}_node src/turtlebot3_momonga_node.cpp)
+add_executable(waypoint_generator_node src/waypoint_generator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -153,6 +157,11 @@ add_executable(${PROJECT_NAME}_node src/turtlebot3_momonga_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
  )
+
+
+## boostのコマンドライン解析パッケージを使うときは、-lboost_program_optionsが必要です！！！
+
+ target_link_libraries(waypoint_generator_node ${catkin_LIBRARIES} -lboost_program_options)
 
 #############
 ## Install ##
@@ -201,3 +210,6 @@ target_link_libraries(${PROJECT_NAME}_node
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+## C++ 11でコンパイルするためにCMakefile.txtに以下を追加．
+add_definitions(-std=c++11)
