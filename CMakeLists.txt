@@ -13,6 +13,11 @@ find_package(catkin REQUIRED COMPONENTS
   turtlebot3_msgs
   message_generation
   geometry_msgs
+  tf
+  cmake_modules
+  interactive_markers
+  nav_msgs
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -110,7 +115,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
   LIBRARIES turtlebot3_momonga
-  CATKIN_DEPENDS roscpp std_msgs turtlebot3_msgs sensor_msgs message_runtime geometry_msgs
+  CATKIN_DEPENDS roscpp std_msgs turtlebot3_msgs sensor_msgs message_runtime geometry_msgs interactive_markers nav_msgs tf visualization_msgs
   DEPENDS system_lib
 )
 
@@ -123,6 +128,7 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -142,6 +148,7 @@ include_directories(
 ## add_executable(実行ファイル名 ソースコード名)
 add_executable(${PROJECT_NAME}_node src/turtlebot3_momonga_node.cpp)
 add_executable(waypoint_generator_node src/waypoint_generator.cpp)
+add_executable(waypoint_saver_node src/waypoint_saver.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -161,7 +168,10 @@ target_link_libraries(${PROJECT_NAME}_node
 
 ## boostのコマンドライン解析パッケージを使うときは、-lboost_program_optionsが必要です！！！
 
- target_link_libraries(waypoint_generator_node ${catkin_LIBRARIES} -lboost_program_options)
+target_link_libraries(waypoint_generator_node ${catkin_LIBRARIES} -lboost_program_options)
+
+target_link_libraries(waypoint_saver_node ${catkin_LIBRARIES})
+
 
 #############
 ## Install ##
