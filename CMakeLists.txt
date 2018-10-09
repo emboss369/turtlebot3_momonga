@@ -18,6 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   interactive_markers
   nav_msgs
   visualization_msgs
+  actionlib
+  roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -115,7 +117,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
   LIBRARIES turtlebot3_momonga
-  CATKIN_DEPENDS roscpp std_msgs turtlebot3_msgs sensor_msgs message_runtime geometry_msgs interactive_markers nav_msgs tf visualization_msgs
+  CATKIN_DEPENDS roscpp roslib actionlib std_msgs turtlebot3_msgs sensor_msgs message_runtime geometry_msgs interactive_markers nav_msgs tf visualization_msgs
   DEPENDS system_lib
 )
 
@@ -149,6 +151,7 @@ include_directories(
 add_executable(${PROJECT_NAME}_node src/turtlebot3_momonga_node.cpp)
 add_executable(waypoint_generator_node src/waypoint_generator.cpp)
 add_executable(waypoint_saver_node src/waypoint_saver.cpp)
+add_executable(waypoint_navigator_node src/waypoint_navigator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -171,6 +174,9 @@ target_link_libraries(${PROJECT_NAME}_node
 target_link_libraries(waypoint_generator_node ${catkin_LIBRARIES} -lboost_program_options)
 
 target_link_libraries(waypoint_saver_node ${catkin_LIBRARIES})
+
+target_link_libraries(waypoint_navigator_node ${catkin_LIBRARIES})
+
 
 
 #############
