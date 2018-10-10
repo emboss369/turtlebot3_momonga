@@ -135,12 +135,17 @@ class WaypointGenerator
         marker.scale.y = msg.scale*0.5;
         marker.scale.z = msg.scale*0.5;
 //        marker.color.r = 0.05 + 1.0*(float)is_searching_area;
-        marker.color.r = 0.05;          // TODO:waypoint_typeに合わせて色を変えよう。
+        marker.color.r = 0.05;
         marker.color.g = 0.80;
         marker.color.b = 0.02;
-        marker.color.a = 1.0;
+        marker.color.a = 0.6;
+        if (waypoint_type == 1) {
+            marker.color.r = 0.80; 
+            marker.color.g = 0.02;
+            marker.color.b = 0.02;
+        }
 
-        control.markers.push_back(marker);
+            control.markers.push_back(marker);
         control.always_visible = true;
         msg.controls.push_back(control);
 

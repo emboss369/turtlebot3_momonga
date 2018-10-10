@@ -162,6 +162,10 @@ class WaypointNavigator
         waypoint_marker.color.b = 0.0;
         if (waypoint_type == WAYPOINT_TYPE_NORMAL)
         {
+            waypoint_marker.color.g = 0.80;
+        }
+        else if (waypoint_type == WAYPOINT_TYPE_STOP)
+        {
             waypoint_marker.color.r = 0.80;
         }
         next_waypoint_marker_pub_.publish(waypoint_marker);
@@ -239,7 +243,7 @@ class WaypointNavigator
 
     void resumeCallback(const std_msgs::Empty &toggle_msg)
     {
-        ROS_INFO("WAYPOINT_REACHED_GOAL");
+        ROS_INFO("RESUME CALLBACK");
         resume_ = true;
     }
 
@@ -251,12 +255,12 @@ class WaypointNavigator
         {
             WayPoint next_waypoint = this->getNextWaypoint();
             ROS_GREEN_STREAM("Next WayPoint is got");
-            if (next_waypoint.waypoint_type_ == WAYPOINT_TYPE_NORMAL)
-            {
+            // if (next_waypoint.waypoint_type_ == WAYPOINT_TYPE_NORMAL)
+            // {
                 ROS_INFO("Go next_waypoint.");
                 this->setNextGoal(next_waypoint);
                 robot_behavior_state_ = RobotBehaviors::WAYPOINT_NAV;
-            }
+            // }
 
             ros::Time begin_navigation = ros::Time::now(); // 新しいナビゲーションを設定した時間
             ros::Time verbose_start = ros::Time::now();    //  定期的に進捗報告する（30秒ごとに報告）
@@ -314,8 +318,10 @@ class WaypointNavigator
                             robot_behavior_state_ = RobotBehaviors::WAYPOINT_REACHED_GOAL_WAIT;
                         }
 
-                        break;
+                        
                     }
+
+                    break;
                 }
 
                 rate_.sleep();
@@ -354,8 +360,10 @@ class WaypointNavigator
                 while (ros::ok())
                 {
                     // resume（再開）フラグが来るまで待機です。
-                    if (resume_)
+                    if (resume_) {
+                        resume_ = false;    // フラグを戻す
                         break;
+                    }
                     rate_.sleep();
                     ros::spinOnce();
                 }
