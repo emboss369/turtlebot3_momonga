@@ -130,17 +130,22 @@ class WaypointGenerator
         msg.controls.push_back(control);
 
         Marker marker;
-        marker.type = Marker::CUBE;
+        marker.type = Marker::CYLINDER;
         marker.scale.x = msg.scale*0.5;
         marker.scale.y = msg.scale*0.5;
         marker.scale.z = msg.scale*0.5;
 //        marker.color.r = 0.05 + 1.0*(float)is_searching_area;
-        marker.color.r = 0.05;          // TODO:waypoint_typeに合わせて色を変えよう。
+        marker.color.r = 0.05;
         marker.color.g = 0.80;
         marker.color.b = 0.02;
-        marker.color.a = 1.0;
+        marker.color.a = 0.6;
+        if (waypoint_type == 1) {
+            marker.color.r = 0.80; 
+            marker.color.g = 0.02;
+            marker.color.b = 0.02;
+        }
 
-        control.markers.push_back(marker);
+            control.markers.push_back(marker);
         control.always_visible = true;
         msg.controls.push_back(control);
 
@@ -151,9 +156,14 @@ class WaypointGenerator
     // フィードバックが到着した時に呼ばれる
     void processFeedback( const visualization_msgs::InteractiveMarkerFeedbackConstPtr &feedback )
     {
+        ROS_INFO_STREAM("processFeedback");
+
         std::ostringstream s;
         s << "Feedback from marker '" << feedback->marker_name << "' "
         << " / control '" << feedback->control_name << "'";
+
+        ROS_INFO_STREAM("Feedback from marker '" 
+        << feedback->marker_name << "' " << " / control '" << feedback->control_name << "'");
     
         switch ( feedback->event_type )
         {
@@ -169,10 +179,12 @@ class WaypointGenerator
         server->applyChanges();
     }
 
-    // WaypointのマーカーをRViz用に作成して、マーカーサーバに渡す
+    // WaypointmakeWaypointMarkerのマーカーをRViz用に作成して、マーカーサーバに渡す
     void makeWaypointMarker(const geometry_msgs::PoseWithCovariance new_pose,
                             int waypoint_type, double reach_threshold)
     {
+        ROS_INFO_STREAM("makeWaypointMarker");
+
         InteractiveMarker int_marker;
         int_marker.header.frame_id = "map";
         int_marker.pose = new_pose.pose;
@@ -228,6 +240,8 @@ class WaypointGenerator
     // RVizでクリックされた時のコールバックメソッド
     void clickedPointCallback(const geometry_msgs::PointStamped &point)
     {
+        ROS_INFO_STREAM("clickedPointCallback");
+
         geometry_msgs::PoseWithCovariance pose;
         tf::pointTFToMsg(tf::Vector3( point.point.x, point.point.y, 0), pose.pose.position);
         tf::quaternionTFToMsg(tf::createQuaternionFromRPY(0, 0, 0), pose.pose.orientation);
