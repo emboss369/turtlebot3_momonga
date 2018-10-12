@@ -60,7 +60,7 @@ class WaypointNavigator
         ros::NodeHandle n("~");
         n.param<std::string>("waypointsfile",
                              filename,
-                             ros::package::getPath("turtlebot3_momonga") + "/waypoints/garden_waypoints.csv");
+                             ros::package::getPath("turtlebot3_momonga") + "/waypoints/waypoints.csv");
 
         ROS_INFO("[Waypoints file name] : %s", filename.c_str());
 
