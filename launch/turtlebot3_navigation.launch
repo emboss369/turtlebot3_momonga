@@ -1,5 +1,6 @@
 <launch>
   <arg name="rviz"            default="true"/>
+  <arg mame="mapfile"         default="$(find turtlebot3_momonga)/map/global.yaml">
 
   <!-- RTABMAP -->
   <include file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
@@ -13,6 +14,11 @@
     <arg name="localization" value="true"/>
     <arg name="rtabmapviz" value="true"/>
   </include>
+
+  <!-- GLOBAL MAP -->
+  <node pkg="map_server" pkg="map_server" type="map_server" args="$(arg mapfile)">
+    <remap from="/map" to="/global_map"/>
+  </node>
 
   <!-- RVIZ -->
   <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz"
