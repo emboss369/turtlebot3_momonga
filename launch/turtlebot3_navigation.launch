@@ -12,12 +12,13 @@
     <arg name="visual_odometry" value="false"/>
     <arg name="odom_topic" value="/odom"/>
     <arg name="localization" value="true"/>
-    <arg name="rtabmapviz" value="true"/>
+    <arg name="rtabmapviz" value="false"/>
   </include>
 
   <!-- GLOBAL MAP -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg mapfile)">
-    <remap from="/map" to="/global_map"/>
+    <remap from="map" to="global_map"/>
+    <remap from="static_map" to="static_global_map" />
   </node>
 
   <!-- RVIZ -->
@@ -31,7 +32,8 @@
   <include file="$(find turtlebot3_momonga)/launch/move_base.launch">
     <arg name="model" value="waffle"/>
     <arg name="odom_topic" value="/odom"/>
-    <remap from="map" to="global_map"/>
+    <!-- <remap from="map" to="global_map"/> -->
+    <arg name="map_topic" value="global_map" />
 
   </include>
 
