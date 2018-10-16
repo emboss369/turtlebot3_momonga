@@ -17,7 +17,8 @@ gimp
 ■グローバルMapを起動する(/global_map)
 rosrun map_server map_server global.yaml /map:=/global_map
 
-■
+■Start Navigation
+roslaunch turtlebot3_momonga turtlebot3_navigation.launch
 
 
 
