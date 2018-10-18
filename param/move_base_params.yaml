@@ -1,9 +1,15 @@
-shutdown_costmaps: false
+#障害物をコストマップに残し続けておくか．これをfalseにしておくと人等の移動物体はその移動軌跡が障害物となってコストマップに現れる
+shutdown_costmaps: true
+#シミュレーションの頻度
 controller_frequency: 10.0
+#有効なパスが見つからなかった時にプランナーがどれだけ待機するか
+#待機の後にspace-clearing oparations（recovery behaviorsのこと？）が呼ばれる．
+#待機時間内に前方の障害物が移動してパスが見つかった場合には復活するということ？
 planner_patience: 5.0
+#コントローラに信号が送られなかった場合，space-clearing oparations（recovery behaviorsのこと？）が呼ばれる前に待機するか．（コントローラとは？？？）
 controller_patience: 15.0
+#地図上のスペースを空けようとするときに障害物がコストマップからクリアされる距離をロボットからの距離メートル単位で。 このパラメータは、move_baseにデフォルトの回復動作が使用されている場合にのみ使用されます。
 conservative_reset_dist: 3.0
 planner_frequency: 5.0
 oscillation_timeout: 10.0
 oscillation_distance: 0.2
-
