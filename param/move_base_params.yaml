@@ -11,5 +11,6 @@ controller_patience: 15.0
 #地図上のスペースを空けようとするときに障害物がコストマップからクリアされる距離をロボットからの距離メートル単位で。 このパラメータは、move_baseにデフォルトの回復動作が使用されている場合にのみ使用されます。
 conservative_reset_dist: 3.0
 planner_frequency: 5.0
+#何秒の振動行動が継続すればリカバリーモードへ移行するかを指定する
 oscillation_timeout: 10.0
 oscillation_distance: 0.2

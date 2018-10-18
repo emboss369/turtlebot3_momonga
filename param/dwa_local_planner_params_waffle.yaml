@@ -1,7 +1,7 @@
 DWAPlannerROS:
 
 # Robot Configuration Parameters
-  max_vel_x: 0.50
+  max_vel_x: 0.50   # x方向の最大速度
   min_vel_x: -0.26
 
   max_vel_y: 0.0
@@ -19,7 +19,7 @@ DWAPlannerROS:
 
   acc_lim_x: 2.5
   acc_lim_y: 0.0
-  #acc_lim_theta: 3.2 # 3.2rad = 183.346 degrees 
+  #acc_lim_theta: 3.2 # 3.2rad = 183.346 degrees
   acc_lim_theta: 1.57 # 90 degrees = 1.57 rad
 
 # Goal Tolerance Parametes
