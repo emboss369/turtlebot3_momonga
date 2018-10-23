@@ -1,8 +1,10 @@
 <launch>
   <arg name="rviz"            default="false"/>
+  <arg name="database_path"   default="~/.ros/rtabmap.db"/>
 
   <!-- RTABMAP -->
   <include file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
+    <arg name="database_path" value="$(arg database_path)" />
     <arg name="rtabmap_args" value="--delete_db_on_start"/>
     <arg name="depth_topic" value="/camera/depth_registered/sw_registered/image_rect_raw"/>
     <arg name="frame_id" value="base_link"/>
