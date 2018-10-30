@@ -9,6 +9,7 @@ roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch
 
 # my room
 roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db"
+roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom_D435.db"
 
 open map for navigation
 
@@ -52,4 +53,8 @@ rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/hiroaki/
 
 ■Waypointファイルを配置する場所とファイル名
 turtlebot3_momonga/waypoints/waypoints.csv
+
+
+
+
 

@@ -1,9 +1,15 @@
 <launch>
     <arg name="multi_robot_name" default=""/>
     <arg name="set_lidar_frame_id" default="base_scan"/>
+    <arg name="D435"               default="true"/>
 
     <!-- Run Realsense -->
-    <include file="$(find realsense_camera)/launch/zr300_nodelet_rgbd.launch">
+    <include unless="$(arg D435)" file="$(find realsense_camera)/launch/zr300_nodelet_rgbd.launch">
+    </include>
+
+    <!-- Run Realsens2 D435 -->
+    <include if="$(arg D435)" file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true"/>
     </include>
 
     <include file="$(find turtlebot3_bringup)/launch/turtlebot3_core.launch">
