@@ -27,7 +27,7 @@
     <arg name="subscribe_scan" value="true"/>
     <arg name="queue_size" value="300"/>
     <arg name="icp_odometry" value="true"/>
-    <arg name="odom_topic" value="/odom"/>
+
 
   </include>
 
