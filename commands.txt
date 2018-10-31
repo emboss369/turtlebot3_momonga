@@ -8,9 +8,11 @@ roslaunch turtlebot3_momonga teleop.launch
 roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch
 
 # my room
+roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db" rtabmap_args:="-d"
+# add
 roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db"
-roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db" rtabmap_args:=""
-roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom_D435.db"
+
+roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom_D435.db" rtabmap_args:="-d"
 
 open map for navigation
 
