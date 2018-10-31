@@ -3,11 +3,12 @@
   <arg name="database_path"   default="~/.ros/rtabmap.db"/>
   <arg name="ZR300"           default="false"/>
   <arg name="D435"            default="true"/>
+  <arg name="rtabmap_args"    default=""/>
 
   <!-- RTABMAP for ZR300 -->
   <include if="$(arg ZR300)" file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
     <arg name="database_path" value="$(arg database_path)" />
-    <arg name="rtabmap_args" value="--delete_db_on_start"/>
+    <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
     <arg name="depth_topic" value="/camera/depth_registered/sw_registered/image_rect_raw"/>
     <arg name="frame_id" value="base_link"/>
     <arg name="subscribe_scan" value="true"/>
@@ -19,7 +20,7 @@
   <!-- RTABMAP for D435-->
   <include if="$(arg D435)" file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
     <arg name="database_path" value="$(arg database_path)" />
-    <arg name="rtabmap_args" value="--delete_db_on_start"/>
+    <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
     <arg name="depth_topic" value="/camera/aligned_depth_to_color/image_raw"/>
     <arg name="rgb_topic" value="/camera/color/image_raw"/>
     <arg name="camera_info_topic" value="/camera/color/camera_info"/>

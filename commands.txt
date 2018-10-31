@@ -9,6 +9,7 @@ roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch
 
 # my room
 roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db"
+roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom.db" rtabmap_args:=""
 roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/myroom_D435.db"
 
 open map for navigation
