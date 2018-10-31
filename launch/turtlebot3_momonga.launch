@@ -1,7 +1,8 @@
 <launch>
-    <arg name="multi_robot_name" default=""/>
-    <arg name="set_lidar_frame_id" default="base_scan"/>
-    <arg name="D435"               default="true"/>
+    <arg name="multi_robot_name"    default=""/>
+    <arg name="set_lidar_frame_id"  default="base_scan"/>
+    <arg name="D435"                default="true"/>
+    <arg name="joystick"            default="true"/>
 
     <!-- Run Realsense -->
     <include unless="$(arg D435)" file="$(find realsense_camera)/launch/zr300_nodelet_rgbd.launch">
@@ -25,5 +26,8 @@
     </include>
 
     <node pkg="turtlebot3_momonga" type="turtlebot3_momonga_node" name="turtlebot3_momonga_node" output="screen"/>
+
+    <include if="$(arg joystick)"  file="$(find turtlebot3_momonga)/launch/teleop.launch">
+    </include>
 
 </launch>
