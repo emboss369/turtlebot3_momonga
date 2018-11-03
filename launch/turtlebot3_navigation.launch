@@ -2,6 +2,7 @@
   <arg name="rviz"            default="true"/>
   <arg name="mapfile"         default="$(find turtlebot3_momonga)/map/global.yaml"/>
   <arg name="database_path"   default="~/.ros/rtabmap.db"/>
+  <arg name="SavedLocalizationIgnored" default="false"/>
 
   <!-- RTABMAP -->
   <include file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
@@ -15,6 +16,7 @@
     <arg name="odom_topic" value="/odom"/>
     <arg name="localization" value="true"/>
     <arg name="rtabmapviz" value="false"/>
+    <arg name="SavedLocalizationIgnored" value="$(arg SavedLocalizationIgnored)"/>
   </include>
 
   <!-- GLOBAL MAP -->

@@ -39,6 +39,8 @@ rosrun map_server map_server myroom_global.yaml /map:=/global_map
 ■Start Navigation
 roslaunch turtlebot3_momonga turtlebot3_navigation.launch
 
+roslaunch turtlebot3_momonga turtlebot3_navigation.launch SavedLocalizationIgnored:=true
+
 # my room
 roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros/myroom.db" mapfile:="/home/turtle/catkin_ws/src/turtlebot3_momonga/map/myroom_global.yaml"
 

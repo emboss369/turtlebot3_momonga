@@ -21,9 +21,9 @@
 
 #define NAME                             "Waffle or Waffle Pi"
 
-#define WHEEL_RADIUS                     0.0595          // meter
-#define WHEEL_SEPARATION                 0.287           // meter (BURGER : 0.160, WAFFLE : 0.287)
-#define TURNING_RADIUS                   0.1435          // meter (BURGER : 0.080, WAFFLE : 0.1435)
+#define WHEEL_RADIUS                     0.059           // meter
+#define WHEEL_SEPARATION                 0.290           // meter (BURGER : 0.160, WAFFLE : 0.287)
+#define TURNING_RADIUS                   0.145           // meter (BURGER : 0.080, WAFFLE : 0.1435)
 #define ROBOT_RADIUS                     0.220           // meter (BURGER : 0.105, WAFFLE : 0.220)
 #define ENCODER_MIN                      -2147483648     // raw
 #define ENCODER_MAX                      2147483648      // raw
@@ -31,7 +31,7 @@
 #define MAX_LINEAR_VELOCITY              0.50  // m/s   (BURGER : 0.22, WAFFLE : 0.25)
 #define MAX_ANGULAR_VELOCITY             1.82   // rad/s (BURGER : 2.84, WAFFLE : 1.82)
 
-#define MIN_LINEAR_VELOCITY              -MAX_LINEAR_VELOCITY  
-#define MIN_ANGULAR_VELOCITY             -MAX_ANGULAR_VELOCITY 
+#define MIN_LINEAR_VELOCITY              -MAX_LINEAR_VELOCITY
+#define MIN_ANGULAR_VELOCITY             -MAX_ANGULAR_VELOCITY
 
 #endif  //TURTLEBOT3_WAFFLE_H_

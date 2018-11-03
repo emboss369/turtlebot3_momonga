@@ -99,6 +99,13 @@
 
   <arg name="rate"                     default="1.0"/>           <!-- for Rtabmap/DetectionRate -->
 
+<!--
+ローカライゼーションモードでは、以前にマッピングを停止したのと同じ場所でロボットが再起動しているとみなされます。
+ロボットが前回のセッションの最後の位置から開始していると仮定しないようにする場合つまり、ロボットが毎回異なる場所で再起動する場合
+このパラメータをtrueにします
+-->
+  <arg name="SavedLocalizationIgnored" default="false"/>
+
 
   <!-- These arguments should not be modified directly, see referred topics without "_relay" suffix above -->
   <arg if="$(arg compressed)"     name="rgb_topic_relay"           default="$(arg rgb_topic)_relay"/>
@@ -261,9 +268,6 @@
 
 
 
-      <!-- add for momonga -->
-      <param name="proj_max_height" value="0.8"/>
-
       <!-- Output topics -->
       <remap from="grid_map" to="/map"/>
 
@@ -294,21 +298,23 @@
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
 
       <!-- ロボットはマップを更新するために移動する必要があります（0でない場合）。 -->
-      <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
+      <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
 
       <!-- ロボットがマップを更新するために移動する必要があります（0でない場合）。 -->
-      <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
-
+      <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+<!--
       <param name="Optimizer/Slam2D"          type="string" value="true"/>
+-->
       <param name="Reg/Force3DoF"             type="string" value="true"/>
       <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
       <!-- 変換を受け入れるための最小ビジュアルワードinliers（ループクロージャの画像間のRANSAC変換後）。 -->
-      <param name="Vis/MinInliers"            type="string" value="5"/>
+      <param name="Vis/MinInliers"            type="string" value="12"/>
       <param name="Vis/InlierDistance"        type="string" value="0.1"/>
       <!-- 抽出されたキーポイントを深さでフィルタリングする（0 = inf） -->
-      <param name="Kp/MaxDepth"               type="string" value="1.75"/>
+      <param name="Kp/MaxDepth"               type="string" value="4"/>
       <!-- 特徴点の最大深さ（0は無制限を意味します） -->
-      <param name="Vis/MaxDepth"              type="string" value="1.75"/>
+      <param name="Vis/MaxDepth"              type="string" value="4"/>
+
       <!-- マップ更新に許可される最大時間（ミリ秒）（0は無限大を意味します）。
       マップ更新時間がこの固定時間しきい値を超えると、ワーキングメモリ（WM）
       の一部のノードが長期メモリに転送され、WMのサイズが制限され、更新時間が短縮されます。 -->
@@ -319,19 +325,26 @@
       <param name="Mem/RehearsalSimilarity"   type="string" value="0.45"/>
       <!-- 最大障害物の高さ（0 =無効）。 -->
       <param name="Grid/MaxObstacleHeight"    type="string" value="0.8" />
+
+<!--
       <param name="Grid/NoiseFilteringRadius" type="string" value="0.05"/>
       <param name="Grid/NoiseFilteringMinNeighbors" type="string" value="5"/>
+-->
+
+      <param name="RGBD/ProximityPathMaxNeighbors" type="string" value="10"/>
+      <param name="Grid/FromDepth"            type="string" value="false"/>
 
       <!-- 動き推定アプローチ：0：3D→3D、1：3D→2D（PnP）、2：2D→2D（エピポーラ幾何学）デフォルトは1かな？ -->
       <param name="Vis/EstimationType"        type="string" value="1"/>
-
-
 
 
       <!-- localization mode -->
 	  <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
 	  <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
 	  <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
+
+    <param name="RGBD/SavedLocalizationIgnored" type="string" value="$(arg SavedLocalizationIgnored)"/>
+
     </node>
 
     <!-- Visualisation RTAB-Map -->
