@@ -4,6 +4,7 @@
   <arg name="ZR300"           default="false"/>
   <arg name="D435"            default="true"/>
   <arg name="rtabmap_args"    default=""/>
+  <arg name="localization"            default="false"/>
 
   <!-- RTABMAP for ZR300 -->
   <include if="$(arg ZR300)" file="$(find turtlebot3_momonga)/launch/rtabmap.launch">
@@ -29,6 +30,9 @@
     <arg name="queue_size" value="300"/>
     <arg name="visual_odometry" value="false"/>
     <arg name="odom_topic" value="/odom"/>
+    <arg name="rtabmapviz" value="true"/>
+    <arg name="rviz" value="false"/>
+    <arg name="localization" value="$(arg localization)"/>
   </include>
 
   <!-- RVIZ -->

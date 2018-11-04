@@ -311,9 +311,12 @@
       <param name="Vis/MinInliers"            type="string" value="12"/>
       <param name="Vis/InlierDistance"        type="string" value="0.1"/>
       <!-- 抽出されたキーポイントを深さでフィルタリングする（0 = inf） -->
-      <param name="Kp/MaxDepth"               type="string" value="4"/>
+      <param name="Kp/MaxDepth"               type="string" value="10"/>
       <!-- 特徴点の最大深さ（0は無制限を意味します） -->
-      <param name="Vis/MaxDepth"              type="string" value="4"/>
+      <param name="Vis/MaxDepth"              type="string" value="10"/>
+
+      <param name="Kp/MinDepth"               type="string" value="1"/>
+      <param name="Vis/MinDepth"              type="string" value="1"/>
 
       <!-- マップ更新に許可される最大時間（ミリ秒）（0は無限大を意味します）。
       マップ更新時間がこの固定時間しきい値を超えると、ワーキングメモリ（WM）
