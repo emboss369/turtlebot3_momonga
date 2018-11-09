@@ -1,0 +1,42 @@
+<launch>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <param name="tb3_model" value="$(arg model)"/>
+
+    <arg name="database_path"   default="~/.ros/rtabmap.db"/>
+    <arg name="multi_robot_name"    default=""/>
+    <arg name="rtabmap_args"    default=""/>
+
+    <!-- Run Realsens2 D435 -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true"/>
+    </include>
+
+
+    <include file="$(find turtlebot3_bringup)/launch/includes/description.launch.xml">
+      <arg name="model" value="$(arg model)" />
+    </include>
+
+    <node pkg="turtlebot3_bringup" type="turtlebot3_diagnostics" name="turtlebot3_diagnostics" output="screen"/>
+
+    <!-- <node pkg="turtlebot3_fake" type="turtlebot3_fake_node" name="turtlebot3_fake_node" output="screen" /> -->
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+    </node>
+
+    <!-- RTABMAP for D435-->
+    <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+      <arg name="database_path" value="$(arg database_path)" />
+      <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
+      <arg name="depth_topic" value="/camera/aligned_depth_to_color/image_raw"/>
+      <arg name="rgb_topic" value="/camera/color/image_raw"/>
+      <arg name="camera_info_topic" value="/camera/color/camera_info"/>
+      <arg name="frame_id" value="base_link"/>
+      <arg name="subscribe_scan" value="false"/>
+      <arg name="queue_size" value="300"/>
+      <arg name="visual_odometry" value="true"/>
+      <arg name="rtabmapviz"              default="true" />
+      <arg name="rviz"                    default="false" />
+    </include>
+
+</launch>

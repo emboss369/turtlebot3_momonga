@@ -30,7 +30,7 @@ roslaunch turtlebot3_momonga turtlebot3_slam_3d.launch database_path:="~/.ros/ro
 
 
 ■作成した地図を保存、グローバルなマップとして使います。saverとserverを間違えないように。
- 
+
 ■ change to localization mode
 rosservice call rtabmap/set_mode_localization
 
@@ -50,11 +50,11 @@ rosrrun map_server map_server room03_global.yaml
 
 rosrun rviz rviz
 
-*note* Set "Fixed Frame"  to "/map" 
+*note* Set "Fixed Frame"  to "/map"
 
 ■Waypointを設定します。
 rosrun turtlebot3_momonga waypoint_generator_node
-rosrun turtlebot3_momonga waypoint_generator_node --load 2018-10-11-04-44-58.csv 
+rosrun turtlebot3_momonga waypoint_generator_node --load 2018-10-11-04-44-58.csv
 
 ■Save Waypoint data to CSV file
 rosrun turtlebot3_momonga waypoint_saver_node
@@ -79,7 +79,7 @@ roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros
 rostopic pub -1 /resume_waypoint std_msgs/Empty
 
 ■waypointナビゲーション開始
-rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/hiroaki/2018-10-10-22-33-29.csv 
+rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/hiroaki/2018-10-10-22-33-29.csv
 
 ■Waypointファイルを配置する場所とファイル名
 turtlebot3_momonga/waypoints/waypoints.csv
@@ -97,6 +97,4 @@ rosrun map_server map_server myroom_global.yaml /map:=/global_map
 
 
 
-
-
-
+■Mouseノートパソコンにて、ビジュアルSLAMを実施する
