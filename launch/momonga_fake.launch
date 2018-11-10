@@ -2,9 +2,9 @@
     <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
     <param name="tb3_model" value="$(arg model)"/>
 
-    <arg name="database_path"   default="~/.ros/rtabmap.db"/>
+    <arg name="database_path"   default="~/.ros/tsukuba1101_m01.db"/>
     <arg name="multi_robot_name"    default=""/>
-    <arg name="rtabmap_args"    default=""/>
+    <arg name="rtabmap_args"    default="-d"/>
 
     <!-- Run Realsens2 D435 -->
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
@@ -15,6 +15,11 @@
     <include file="$(find turtlebot3_bringup)/launch/includes/description.launch.xml">
       <arg name="model" value="$(arg model)" />
     </include>
+
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+      <param name="use_gui" value="true"/>
+      <param name="rate" value="50"/>
+    </node>
 
     <node pkg="turtlebot3_bringup" type="turtlebot3_diagnostics" name="turtlebot3_diagnostics" output="screen"/>
 
