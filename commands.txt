@@ -1,3 +1,11 @@
+
+■つくばちゃれんじ本番でーた
+roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros/TSUKUBA1111_RC.db" mapfile:="/home/turtle/TSUKUBA1111_RC.yaml"
+■実行
+rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/turtle/TSUKUBA1111_RC.csv
+
+
+
 ■momonga起動します
 roslaunch turtlebot3_momonga turtlebot3_momonga.launch
 
@@ -73,6 +81,7 @@ roslaunch turtlebot3_momonga turtlebot3_navigation.launch SavedLocalizationIgnor
 roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros/room03.db" mapfile:="/home/turtle/catkin_ws/src/turtlebot3_momonga/map/room03_global.yaml"
 
 roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros/room03.db" mapfile:="/home/turtle/room03_global.yaml"
+
 
 
 ■resume再開する
