@@ -2,7 +2,7 @@
 ■つくばちゃれんじ本番でーた
 roslaunch turtlebot3_momonga turtlebot3_navigation.launch database_path:="~/.ros/TSUKUBA1111_RC.db" mapfile:="/home/turtle/TSUKUBA1111_RC.yaml"
 ■実行
-rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/turtle/TSUKUBA1111_RC.csv
+rosrun turtlebot3_momonga waypoint_navigator_node _waypointsfile:=/home/turtle/TSUKUBA1111_RC2.csv
 
 
 
